@@ -119,15 +119,19 @@ st.bar_chart(
 
 st.subheader("Ranking completo de potencial de mercado")
 
-ranking_exibicao = ranking.drop(
-    columns=["Observação"],
-    errors="ignore"
-)
+ranking_exibicao = ranking.copy()
 
 st.dataframe(
     ranking_exibicao,
     use_container_width=True,
     hide_index=True
+)
+
+st.download_button(
+    "Baixar ranking em CSV",
+    data=ranking.to_csv(index=False).encode("utf-8-sig"),
+    file_name="ranking_ipm_osasco.csv",
+    mime="text/csv"
 )
 
 st.caption(
@@ -184,14 +188,7 @@ st.write(interpretacoes[1])
 st.markdown("**🏪 Oportunidade competitiva**")
 st.write(interpretacoes[2])
 
-st.caption("Classificações descritivas, não validadas estatisticamente. A análise econômica utiliza a renda média do bairro; a análise competitiva considera o segmento de bebidas.")
+st.caption("Classificações descritivas, não validadas estatisticamente. A análise econômica utiliza a renda média do bairro; a análise competitiva considera os concorrentes ativos do segmento de artigos esportivos.")
 
 
 
-
-st.download_button(
-    "Baixar ranking em CSV",
-    data=ranking.to_csv(index=False).encode("utf-8-sig"),
-    file_name="ranking_ipm_osasco.csv",
-    mime="text/csv"
-)
